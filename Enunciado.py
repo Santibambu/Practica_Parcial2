@@ -6,6 +6,14 @@ MapaTesoro = [
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0]]
 
+FilaTesoro = 0
+ColumnaTesoro = 0
+for f in range(len(MapaTesoro)):
+    for c in range(len(MapaTesoro[f])):
+        if MapaTesoro[f][c] == 1:
+            FilaTesoro = f
+            ColumnaTesoro = c
+
 def VerificarTesoro(mapa: list, x: int, y: int) -> int:
         """
         Verifica las coordenadas que ingresó el usuario para encontrar el tesoro dentro del mapa
@@ -20,8 +28,8 @@ def VerificarTesoro(mapa: list, x: int, y: int) -> int:
         if mapa[CoordenadaFila][CoordenadaColumna] == 1:
             Resultado = 0
         else:
-            Manhattan = (x - 1) + (y - 3)
-            Resultado = Manhattan
+            Manhattan = (x - FilaTesoro) + (y - ColumnaTesoro)
+            Resultado = abs(Manhattan)
         if Resultado == 0:
             print("\n¡Encontraste el tesoro!\n")
         else:
