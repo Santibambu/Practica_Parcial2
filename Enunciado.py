@@ -29,14 +29,21 @@ def VerificarTesoro(mapa: list, x: int, y: int) -> int:
         return Resultado
 
 while True:
-    CoordenadaFila = int(input("Porfavor, ingrese la coordenada de una fila (desde 0 hasta 4)\n"))
-    CoordenadaColumna = int(input("Porfavor, ingrese la coordenada de una columna (desde 0 hasta 4)\n"))
-    if VerificarTesoro(MapaTesoro, CoordenadaFila, CoordenadaColumna) != 0:
-        Continuar = input("No ha encontrado el tesoro. ¿Desea continuar jugando? (S/N)\n").upper()
-        if Continuar not in ["S", "N"]:
-            print("La opción ingresada es inválida. Vuelva a iniciar el programa.\n")
-        elif Continuar == "N":
-            print("Ha decidido dejar de jugar.\n")
+    try:
+        CoordenadaFila = int(input("Porfavor, ingrese la coordenada de una fila (desde 0 hasta 4)\n"))
+        if CoordenadaFila < 0 or CoordenadaFila > 4:
+            raise ValueError("la coordenada de la fila no puede ser ni menor a 0 ni mayor a 4")
+        CoordenadaColumna = int(input("Porfavor, ingrese la coordenada de una columna (desde 0 hasta 4)\n"))
+        if CoordenadaColumna < 0 or CoordenadaColumna > 4:
+            raise ValueError("la coordenada de la columna no puede ser ni menor a 0 ni mayor a 4")
+        if VerificarTesoro(MapaTesoro, CoordenadaFila, CoordenadaColumna) != 0:
+            Continuar = input("No ha encontrado el tesoro. ¿Desea continuar jugando? (S/N)\n").upper()
+            if Continuar not in ["S", "N"]:
+                print("La opción ingresada es inválida. Vuelva a iniciar el programa.\n")
+            elif Continuar == "N":
+                print("Ha decidido dejar de jugar.\n")
+                break
+        else:
             break
-    else:
-        break
+    except ValueError as e:
+        print(f"Error: {e}\n")
